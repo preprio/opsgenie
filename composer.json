@@ -1,0 +1,26 @@
+{
+    "name": "davydevries/opsgenie",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "authors": [
+        {
+            "name": "Davy de Vries",
+            "email": "me@davy.dev",
+            "homepage": "https://davy.dev",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DavydeVries\\OpsGenie\\OpsGenieServiceProvider"
+            ]
+        }
+    }
+}
