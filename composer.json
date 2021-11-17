@@ -22,5 +22,7 @@
                 "DavydeVries\\OpsGenie\\OpsGenieServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable" : true
 }
