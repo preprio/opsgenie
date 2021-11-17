@@ -1,31 +1,10 @@
 <?php
 
-if (! function_exists('opsgenie')) {
+if (! function_exists('Ops')) {
     /**
-     * @param int $priority Incident priority. (1=Critical, 2=High, 3=Moderate, 4=Low, 5=Informational)
-     * @param string|null $message (optional)
-     * @param string|null $description (optional)
-     * @param array $details (optional)
-     * @param array $tags (optional)
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return \DavydeVries\OpsGenie\OpsGenie
      */
-    function opsgenie(int $priority, string $message = null, string $description = null, array $details = [], array $tags = []) {
-        $client = new \GuzzleHttp\Client();
-
-        $client->request('POST', 'https://api.opsgenie.com/v1/incidents/create', [
-            'headers' => [
-                'Authorization' => 'GenieKey ' . config('opsgenie.key')
-            ],
-            'json' => [
-                'priority' => 'P' . $priority,
-                'message' => $message,
-                'description' => $description,
-                'details' => $details,
-                'tags' => $tags,
-                'impactedServices' => [
-                    config('opsgenie.service')
-                ]
-            ]
-        ]);
+    function Ops() {
+        return new DavydeVries\OpsGenie\OpsGenie();
     }
 }
