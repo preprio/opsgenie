@@ -13,7 +13,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "DavydeVries\\OpsGenie\\": "src"
+            "DavydeVries\\OpsGenie\\": "src/"
         },
         "files": [
             "helpers.php"
