@@ -12,6 +12,9 @@
         }
     ],
     "autoload": {
+        "psr-4": {
+            "DavydeVries\\OpsGenie\\": "src"
+        },
         "files": [
             "helpers.php"
         ]
@@ -24,5 +27,5 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable" : true
+    "prefer-stable": true
 }
