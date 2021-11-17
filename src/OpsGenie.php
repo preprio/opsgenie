@@ -8,21 +8,25 @@ namespace DavydeVries\OpsGenie;
 class OpsGenie
 {
     /**
-     * @var array
-     */
-    private $data = [];
-
-
-    /**
      * @return incident
      */
     public function incident()
     {
         $incident = new incident(null, $this);
-
-        $this->data['incident'] = $incident;
-
         return $incident;
+    }
+
+    public function heartbeat($name)
+    {
+        try {
+            $client = new \GuzzleHttp\Client();
+            $client->request('GET', 'https://api.opsgenie.com/v2/heartbeats/' . $name . '/ping', [
+                'headers' => [
+                    'Authorization' => 'GenieKey ' . config('opsgenie.key'),
+                ]
+            ]);
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+        }
     }
 }
 
@@ -228,7 +232,7 @@ class incident
                 ],
                 'json' => $data,
             ]);
-        } catch (\GuzzleHttp\Exception\GuzzleException) {
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
         }
     }
 }
