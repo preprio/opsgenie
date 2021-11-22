@@ -536,6 +536,8 @@ class AlertResponse
                             ]
                         ]
                     ]);
+
+                    return $this;
                 } catch (GuzzleException $e) {
                 }
 
@@ -562,6 +564,8 @@ class AlertResponse
                             ]
                         ]
                     ]);
+
+                    return $this;
                 } catch (GuzzleException $e) {
                 }
 
