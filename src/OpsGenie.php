@@ -26,7 +26,7 @@ class OpsGenie
             $client->request('GET', 'https://api.opsgenie.com/v2/heartbeats/' . $name . '/ping', [
                 'headers' => [
                     'Authorization' => 'GenieKey ' . config('opsgenie.key'),
-                ]
+                ],
             ]);
         } catch (GuzzleException $e) {
         }
@@ -475,7 +475,7 @@ class alert
 
             $parsedResponse = json_decode($response->getBody()->getContents(), true);
 
-            return new AlertResponse($parsedResponse['requestId'], $this);
+            return new AlertResponse($parsedResponse, $this);
         } catch (GuzzleException $e) {
         }
     }
@@ -486,91 +486,95 @@ class AlertResponse
     /**
      * @var array
      */
-    private $requestId = null;
-    private $alertId = null;
+    private $data = [];
 
     /**
      * @var
      */
     private $parent;
 
-    function __construct($requestId, $parent)
+    function __construct($data, $parent)
     {
-        $this->requestId = $requestId;
+        $this->data = $data;
         $this->parent = $parent;
     }
 
     private function getAlertId()
     {
-        try {
-            $client = new Client();
+        if (array_key_exists('alertId', $this->data)) {
+            return $this->data['alertId'];
+        } else {
+            try {
+                $client = new Client();
 
-            $response = $client->request('GET', 'https://api.opsgenie.com/v2/alerts/requests/'.$this->requestId, [
-                'headers' => [
-                    'Authorization' => 'GenieKey ' . config('opsgenie.key'),
-                ],
-            ]);
+                $response = $client->request('GET', 'https://api.opsgenie.com/v2/alerts/requests/' . $this->data['requestId'], [
+                    'headers' => [
+                        'Authorization' => 'GenieKey ' . config('opsgenie.key'),
+                    ],
+                ]);
 
-            $response = json_decode($response->getBody()->getContents(), true);
+                $response = json_decode($response->getBody()->getContents(), true);
 
-            return $this->alertId = $response['data']['alertId'];
-        } catch (GuzzleException $e) {
+                return $this->data['alertId'] = $response['data']['alertId'];
+            } catch (GuzzleException $e) {
+            } catch (Exception $e) {
+            }
         }
     }
 
     public function attachFile($pathToFile = '')
     {
-        if (!empty($pathToFile) && $this->requestId && file_exists($pathToFile)) {
-            if($this->getAlertId()) {
+        if (!empty($pathToFile) && file_exists($pathToFile)) {
+            if ($this->getAlertId()) {
                 try {
                     $client = new Client();
 
-                    $response = $client->request('POST', 'https://api.opsgenie.com/v2/alerts/'.$this->alertId.'/attachments', [
+                    $response = $client->request('POST', 'https://api.opsgenie.com/v2/alerts/' . $this->data['alertId'] . '/attachments', [
                         'headers' => [
                             'Authorization' => 'GenieKey ' . config('opsgenie.key'),
                         ],
                         'multipart' => [
                             [
                                 'name' => 'file',
-                                'contents' => fopen($pathToFile, 'r')
-                            ]
-                        ]
+                                'contents' => fopen($pathToFile, 'r'),
+                            ],
+                        ],
                     ]);
-
-                    return $this;
                 } catch (GuzzleException $e) {
                 }
 
             }
         }
+
+        return $this;
     }
 
     public function attachBlob($blob, $name = 'file')
     {
-        if (!empty($blob) && $this->requestId) {
-            if($this->getAlertId()) {
+        if (!empty($blob)) {
+            if ($this->getAlertId()) {
                 try {
                     $client = new Client();
 
-                    $response = $client->request('POST', 'https://api.opsgenie.com/v2/alerts/'.$this->alertId.'/attachments', [
+                    $response = $client->request('POST', 'https://api.opsgenie.com/v2/alerts/' . $this->data['alertId'] . '/attachments', [
                         'headers' => [
                             'Authorization' => 'GenieKey ' . config('opsgenie.key'),
                         ],
                         'multipart' => [
                             [
-                                'name'     => 'file',
+                                'name' => 'file',
                                 'contents' => $blob,
                                 'filename' => $name,
-                            ]
-                        ]
+                            ],
+                        ],
                     ]);
-
-                    return $this;
                 } catch (GuzzleException $e) {
                 }
 
             }
         }
+
+        return $this;
     }
 
 }
