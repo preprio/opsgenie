@@ -4,7 +4,8 @@ if (! function_exists('Ops')) {
     /**
      * @return \Prepr\OpsGenie\OpsGenie
      */
-    function Ops() {
+    function Ops()
+    {
         return new Prepr\OpsGenie\OpsGenie();
     }
 }

@@ -5,10 +5,6 @@ namespace Prepr\OpsGenie;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
-
-/**
- *
- */
 class OpsGenie
 {
     /**
@@ -23,9 +19,9 @@ class OpsGenie
     {
         try {
             $client = new Client();
-            $client->request('GET', 'https://api.opsgenie.com/v2/heartbeats/' . $name . '/ping', [
+            $client->request('GET', 'https://api.opsgenie.com/v2/heartbeats/'.$name.'/ping', [
                 'headers' => [
-                    'Authorization' => 'GenieKey ' . config('opsgenie.key'),
+                    'Authorization' => 'GenieKey '.config('opsgenie.key'),
                 ],
             ]);
         } catch (GuzzleException $e) {
@@ -41,9 +37,6 @@ class OpsGenie
     }
 }
 
-/**
- *
- */
 class incident
 {
     /**
@@ -62,18 +55,18 @@ class incident
      * @param $data
      * @param $parent
      */
-    function __construct($data, $parent)
+    public function __construct($data, $parent)
     {
         $this->parent = $parent;
     }
 
     /**
-     * @param int $priority Priority of incident, 1 = Critical, 2 = High, 3 = Moderate, 4 = Low, 5 = Informational.
+     * @param  int  $priority  Priority of incident, 1 = Critical, 2 = High, 3 = Moderate, 4 = Low, 5 = Informational.
      * @return $this
      */
     private function priority(int $priority)
     {
-        $this->object['priority'] = 'P' . $priority;
+        $this->object['priority'] = 'P'.$priority;
 
         return $this;
     }
@@ -179,18 +172,18 @@ class incident
     }
 
     /**
-     * @param string $message Title of the incident.
+     * @param  string  $message  Title of the incident.
      * @return $this
      */
     public function message(string $message)
     {
-        $this->object['message'] = (config('opsgenie.prefix') ? '[' . config('opsgenie.prefix') . '] ' : '') . $message;
+        $this->object['message'] = (config('opsgenie.prefix') ? '['.config('opsgenie.prefix').'] ' : '').$message;
 
         return $this;
     }
 
     /**
-     * @param string $description Description body of the incident.
+     * @param  string  $description  Description body of the incident.
      * @return $this
      */
     public function description(string $description)
@@ -200,9 +193,8 @@ class incident
         return $this;
     }
 
-
     /**
-     * @param array $details Extra properties of the incident. (Key-Value list)
+     * @param  array  $details  Extra properties of the incident. (Key-Value list)
      * @return $this
      */
     public function details(array $details = [])
@@ -213,7 +205,7 @@ class incident
     }
 
     /**
-     * @param array $tags Tags of the incident. (Simple list)
+     * @param  array  $tags  Tags of the incident. (Simple list)
      * @return $this
      */
     public function tags(array $tags = [])
@@ -223,9 +215,6 @@ class incident
         return $this;
     }
 
-    /**
-     *
-     */
     public function send()
     {
         try {
@@ -239,7 +228,7 @@ class incident
 
             $client->request('POST', 'https://api.opsgenie.com/v1/incidents/create', [
                 'headers' => [
-                    'Authorization' => 'GenieKey ' . config('opsgenie.key'),
+                    'Authorization' => 'GenieKey '.config('opsgenie.key'),
                 ],
                 'json' => $data,
             ]);
@@ -248,9 +237,6 @@ class incident
     }
 }
 
-/**
- *
- */
 class alert
 {
     /**
@@ -269,18 +255,18 @@ class alert
      * @param $data
      * @param $parent
      */
-    function __construct($data, $parent)
+    public function __construct($data, $parent)
     {
         $this->parent = $parent;
     }
 
     /**
-     * @param int $priority Priority of alert, 1 = Critical, 2 = High, 3 = Moderate, 4 = Low, 5 = Informational.
+     * @param  int  $priority  Priority of alert, 1 = Critical, 2 = High, 3 = Moderate, 4 = Low, 5 = Informational.
      * @return $this
      */
     private function priority(int $priority)
     {
-        $this->object['priority'] = 'P' . $priority;
+        $this->object['priority'] = 'P'.$priority;
 
         return $this;
     }
@@ -386,18 +372,18 @@ class alert
     }
 
     /**
-     * @param string $message Title of the alert.
+     * @param  string  $message  Title of the alert.
      * @return $this
      */
     public function message(string $message)
     {
-        $this->object['message'] = (config('opsgenie.prefix') ? '[' . config('opsgenie.prefix') . '] ' : '') . $message;
+        $this->object['message'] = (config('opsgenie.prefix') ? '['.config('opsgenie.prefix').'] ' : '').$message;
 
         return $this;
     }
 
     /**
-     * @param string $description Description body of the alert.
+     * @param  string  $description  Description body of the alert.
      * @return $this
      */
     public function description(string $description)
@@ -407,9 +393,8 @@ class alert
         return $this;
     }
 
-
     /**
-     * @param array $details Extra properties of the alert. (Key-Value list)
+     * @param  array  $details  Extra properties of the alert. (Key-Value list)
      * @return $this
      */
     public function details(array $details = [])
@@ -420,7 +405,7 @@ class alert
     }
 
     /**
-     * @param array $tags Tags of the alert. (Simple list)
+     * @param  array  $tags  Tags of the alert. (Simple list)
      * @return $this
      */
     public function tags(array $tags = [])
@@ -431,7 +416,7 @@ class alert
     }
 
     /**
-     * @param string $entity Entity of the alert.
+     * @param  string  $entity  Entity of the alert.
      * @return $this
      */
     public function entity(string $entity)
@@ -442,7 +427,7 @@ class alert
     }
 
     /**
-     * @param string $alias Alias of the alert.
+     * @param  string  $alias  Alias of the alert.
      * @return $this
      */
     public function alias(string $alias)
@@ -452,9 +437,6 @@ class alert
         return $this;
     }
 
-    /**
-     *
-     */
     public function send()
     {
         try {
@@ -468,7 +450,7 @@ class alert
 
             $response = $client->request('POST', 'https://api.opsgenie.com/v2/alerts', [
                 'headers' => [
-                    'Authorization' => 'GenieKey ' . config('opsgenie.key'),
+                    'Authorization' => 'GenieKey '.config('opsgenie.key'),
                 ],
                 'json' => $data,
             ]);
@@ -493,7 +475,7 @@ class AlertResponse
      */
     private $parent;
 
-    function __construct($data, $parent)
+    public function __construct($data, $parent)
     {
         $this->data = $data;
         $this->parent = $parent;
@@ -507,9 +489,9 @@ class AlertResponse
             try {
                 $client = new Client();
 
-                $response = $client->request('GET', 'https://api.opsgenie.com/v2/alerts/requests/' . $this->data['requestId'], [
+                $response = $client->request('GET', 'https://api.opsgenie.com/v2/alerts/requests/'.$this->data['requestId'], [
                     'headers' => [
-                        'Authorization' => 'GenieKey ' . config('opsgenie.key'),
+                        'Authorization' => 'GenieKey '.config('opsgenie.key'),
                     ],
                 ]);
 
@@ -524,14 +506,14 @@ class AlertResponse
 
     public function attachFile($pathToFile = '')
     {
-        if (!empty($pathToFile) && file_exists($pathToFile)) {
+        if (! empty($pathToFile) && file_exists($pathToFile)) {
             if ($this->getAlertId()) {
                 try {
                     $client = new Client();
 
-                    $response = $client->request('POST', 'https://api.opsgenie.com/v2/alerts/' . $this->data['alertId'] . '/attachments', [
+                    $response = $client->request('POST', 'https://api.opsgenie.com/v2/alerts/'.$this->data['alertId'].'/attachments', [
                         'headers' => [
-                            'Authorization' => 'GenieKey ' . config('opsgenie.key'),
+                            'Authorization' => 'GenieKey '.config('opsgenie.key'),
                         ],
                         'multipart' => [
                             [
@@ -542,7 +524,6 @@ class AlertResponse
                     ]);
                 } catch (GuzzleException $e) {
                 }
-
             }
         }
 
@@ -551,14 +532,14 @@ class AlertResponse
 
     public function attachBlob($blob, $name = 'file')
     {
-        if (!empty($blob)) {
+        if (! empty($blob)) {
             if ($this->getAlertId()) {
                 try {
                     $client = new Client();
 
-                    $response = $client->request('POST', 'https://api.opsgenie.com/v2/alerts/' . $this->data['alertId'] . '/attachments', [
+                    $response = $client->request('POST', 'https://api.opsgenie.com/v2/alerts/'.$this->data['alertId'].'/attachments', [
                         'headers' => [
-                            'Authorization' => 'GenieKey ' . config('opsgenie.key'),
+                            'Authorization' => 'GenieKey '.config('opsgenie.key'),
                         ],
                         'multipart' => [
                             [
@@ -570,11 +551,9 @@ class AlertResponse
                     ]);
                 } catch (GuzzleException $e) {
                 }
-
             }
         }
 
         return $this;
     }
-
 }

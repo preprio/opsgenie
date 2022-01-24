@@ -14,7 +14,7 @@ class OpsGenieServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/config.php' => config_path('opsgenie.php'),
+            __DIR__.'/../config/config.php' => config_path('opsgenie.php'),
         ], 'config');
     }
 
@@ -25,6 +25,6 @@ class OpsGenieServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'opsgenie');
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'opsgenie');
     }
 }
