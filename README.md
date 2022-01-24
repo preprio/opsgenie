@@ -176,6 +176,8 @@ Ops()
 ```
 
 ### Attach example/combined
+You can use attach-function multiple times, and mix them in random order.
+For example 2x `->attachBlob()`, 1x `->attachFile()`.
 ```php
 Ops()
     ...
