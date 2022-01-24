@@ -1,5 +1,5 @@
 {
-    "name": "davydevries/opsgenie",
+    "name": "prepr/opsgenie",
     "require": {
         "guzzlehttp/guzzle": "^4|^5|^6|^7"
     },
@@ -13,7 +13,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "DavydeVries\\OpsGenie\\": "src/"
+            "Prepr\\OpsGenie\\": "src/"
         },
         "files": [
             "helpers.php"
@@ -22,7 +22,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "DavydeVries\\OpsGenie\\OpsGenieServiceProvider"
+                "Prepr\\OpsGenie\\OpsGenieServiceProvider"
             ]
         }
     },

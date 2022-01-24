@@ -1,6 +1,6 @@
 <?php
 
-namespace DavydeVries\OpsGenie;
+namespace Prepr\OpsGenie;
 
 use Illuminate\Support\ServiceProvider;
 

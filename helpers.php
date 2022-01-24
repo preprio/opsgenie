@@ -2,9 +2,9 @@
 
 if (! function_exists('Ops')) {
     /**
-     * @return \DavydeVries\OpsGenie\OpsGenie
+     * @return \Prepr\OpsGenie\OpsGenie
      */
     function Ops() {
-        return new DavydeVries\OpsGenie\OpsGenie();
+        return new Prepr\OpsGenie\OpsGenie();
     }
 }

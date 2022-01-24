@@ -1,11 +1,11 @@
 # Installation
 
 ```
-composer require davydevries/opsgenie:dev-main
+composer require prepr/opsgenie
 ```
 
 ```
-php artisan vendor:publish --provider="DavydeVries\OpsGenie\OpsGenieServiceProvider"
+php artisan vendor:publish --provider="Prepr\OpsGenie\OpsGenieServiceProvider"
 ```
 
 ## Configuration
