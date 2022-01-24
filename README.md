@@ -1,5 +1,6 @@
 # Installation
 
+### Composer
 ```
 ...
 "repositories": [
@@ -11,9 +12,10 @@
 ...
 ```
 ```
-composer update
+composer require preprio/opsgenie
 ```
-
+### Config
+Publish `opsgenie.php` config
 ```
 php artisan vendor:publish --provider="Prepr\OpsGenie\OpsGenieServiceProvider"
 ```
@@ -29,20 +31,42 @@ OPSGENIE_KEY=API_ACCESS_TOKEN
 OPSGENIE_SERVICE=SERVICE_ID
 ```
 
+### Optional configuration
+
+It's optional to add a prefix to the message that's send to Opsgenie, to clearify what service/repo. You can add a prefix by configuring the following line in your `.env` file.
+```
+OPSGENIE_PREFIX=preprio/mutation.prepr.io
+```
+
+Examples: 
+
+| config                    | result                                |
+|---------------------------|---------------------------------------|
+| PREFIX                    | `[PREFIX] Message`                    |
+| preprio/mutation.prepr.io | `[preprio/mutation.prepr.io] MESSAGE` |
+| mutation-api              | `[mutation-api] MESSAGE`              |
+
 ## Docs OpsGenie
 
 - [Overview](https://docs.opsgenie.com/docs/api-overview)
+- [Create Alert](https://docs.opsgenie.com/docs/alert-api#create-alert)
 - [Create Incident](https://docs.opsgenie.com/docs/incident-api#create-incident)
 
 ## Usage
 
 ### Base
 
+#### For an incident
 ```php
 Ops()->incident()
 ```
 
-### Priority functions
+#### For an alert
+```php
+Ops()->alert()
+```
+
+### Priority functions (required)
 
 Set incident priority.
 
@@ -54,7 +78,7 @@ Set incident priority.
 |Low| `->P4()` or `->low()`|
 |Informational| `->P5()` or `->informational()`|
 
-### Message
+### Message (required)
 
 Set incident title.
 
@@ -62,7 +86,7 @@ Set incident title.
 ->message('Import failed')
 ```
 
-### Description
+### Description (optional)
 
 Set incident description.
 
@@ -70,7 +94,7 @@ Set incident description.
 ->description('Import failed')
 ```
 
-### Details
+### Details (optional)
 
 Set incident details. (Key-Value list)
 
@@ -82,15 +106,15 @@ Set incident details. (Key-Value list)
     ])
 ```
 
-### Tags
+### Tags (optional)
 
 Set incident tags. (Simple list)
 
 ```php
-->tags(['critical','import','micro-service'])
+->tags(['critical', 'import', 'micro-service'])
 ```
 
-### Send
+### Send (required)
 
 Send incident to Opsgenie.
 
@@ -113,6 +137,6 @@ Ops()
         'file' => 'xxx_x_xxxx_xxxx_xx.csv'
         'example' => true
     ])
-    ->tags(['critical','import','micro-service'])
+    ->tags(['critical', 'import', 'micro-service'])
     ->send();
 ```
