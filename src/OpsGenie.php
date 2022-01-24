@@ -184,7 +184,7 @@ class incident
      */
     public function message(string $message)
     {
-        $this->object['message'] = $message;
+        $this->object['message'] = (config('opsgenie.prefix') ? '[' . config('opsgenie.prefix') . '] ' : '') . $message;
 
         return $this;
     }
@@ -391,7 +391,7 @@ class alert
      */
     public function message(string $message)
     {
-        $this->object['message'] = $message;
+        $this->object['message'] = (config('opsgenie.prefix') ? '[' . config('opsgenie.prefix') . '] ' : '') . $message;
 
         return $this;
     }

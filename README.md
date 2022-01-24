@@ -140,3 +140,47 @@ Ops()
     ->tags(['critical', 'import', 'micro-service'])
     ->send();
 ```
+
+
+## Alert attachments
+
+
+### Attach Resource/Blob (optional)
+You can add attachments to alerts like log files, exception files, renders, json, etc. 
+By adding the following function(s) after `->send()`.
+
+
+```php
+Ops()
+    ...
+    ->send()
+    ->attachBlob('RESOURCE/BLOB', 'filename_with.extension');
+```
+
+You can also attach multiple files
+```php
+Ops()
+    ...
+    ->send()
+    ->attachBlob('RESOURCE/BLOB', 'filename_with.extension')
+    ->attachBlob('<html><body><h1>Hello World!</h1></body></html', 'index.html');
+    ->attachBlob('{"Hello":"World"}', 'export.json');
+```
+
+### Attach files (optional) ⚠️ NOT TESTED
+```php
+Ops()
+    ...
+    ->send()
+    ->attachFile('/path/to/file');
+```
+
+### Attach example/combined
+```php
+Ops()
+    ...
+    ->send()
+    ->attachBlob('{"Hello":"World"}', 'export.json')
+    ->attachFile('/path/to/file')
+    ->attachBlob('<html><body><h1>Hello World!</h1></body></html', 'index.html');
+```
