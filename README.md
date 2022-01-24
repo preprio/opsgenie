@@ -11,7 +11,7 @@
 ...
 ```
 ```
-composer install
+composer update
 ```
 
 ```
