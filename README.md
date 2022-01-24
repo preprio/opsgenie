@@ -1,7 +1,17 @@
 # Installation
 
 ```
-composer require prepr/opsgenie
+...
+"repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/preprio/opsgenie.git"
+        }
+    ],
+...
+```
+```
+composer install
 ```
 
 ```
