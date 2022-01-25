@@ -44,6 +44,7 @@ class incident
      */
     private $object = [
         'priority' => 'P3',
+        'tags' => [],
     ];
 
     /**
@@ -58,6 +59,11 @@ class incident
     public function __construct($data, $parent)
     {
         $this->parent = $parent;
+
+        if (config('opsgenie.tags')) {
+            $defaultTags = explode(',', config('opsgenie.tags'));
+            $this->object['tags'] = array_merge($this->object['tags'], $defaultTags);
+        }
     }
 
     /**
@@ -210,22 +216,13 @@ class incident
      */
     public function tags(array $tags = [])
     {
-        if (config('opsgenie.tags')) {
-            $defaultTags = explode(',', config('opsgenie.tags'));
-            $tags = array_merge($defaultTags, $tags);
-        }
-
-        $this->object['tags'] = $tags;
+        $this->object['tags'] = array_merge($this->object['tags'], $tags);
 
         return $this;
     }
 
     public function send()
     {
-        if (config('opsgenie.tags')) {
-            $this->tags();
-        }
-
         try {
             $client = new Client();
 
@@ -253,6 +250,7 @@ class alert
      */
     private $object = [
         'priority' => 'P3',
+        'tags' => [],
     ];
 
     /**
@@ -267,6 +265,11 @@ class alert
     public function __construct($data, $parent)
     {
         $this->parent = $parent;
+
+        if (config('opsgenie.tags')) {
+            $defaultTags = explode(',', config('opsgenie.tags'));
+            $this->object['tags'] = array_merge($this->object['tags'], $defaultTags);
+        }
     }
 
     /**
@@ -419,12 +422,7 @@ class alert
      */
     public function tags(array $tags = [])
     {
-        if (config('opsgenie.tags')) {
-            $defaultTags = explode(',', config('opsgenie.tags'));
-            $tags = array_merge($defaultTags, $tags);
-        }
-
-        $this->object['tags'] = $tags;
+        $this->object['tags'] = array_merge($this->object['tags'], $tags);
 
         return $this;
     }
@@ -453,10 +451,6 @@ class alert
 
     public function send()
     {
-        if (config('opsgenie.tags')) {
-            $this->tags();
-        }
-
         try {
             $client = new Client();
 
