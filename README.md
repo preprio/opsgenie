@@ -33,6 +33,7 @@ OPSGENIE_SERVICE=SERVICE_ID
 
 ### Optional configuration
 
+### Prefix
 It's optional to add a prefix to the message that's send to Opsgenie, to clearify what service/repo. You can add a prefix by configuring the following line in your `.env` file.
 ```
 OPSGENIE_PREFIX=preprio/mutation.prepr.io
@@ -45,6 +46,12 @@ Examples:
 | PREFIX                    | `[PREFIX] Message`                    |
 | preprio/mutation.prepr.io | `[preprio/mutation.prepr.io] MESSAGE` |
 | mutation-api              | `[mutation-api] MESSAGE`              |
+
+### Default tags
+It's optional to add default tags to the message that's send to Opsgenie. You can add a default tags by configuring the following line in your `.env` file. (comma-separated list)
+```
+OPSGENIE_TAGS=tagOne,tagTwo,etc.
+```
 
 ## Docs OpsGenie
 

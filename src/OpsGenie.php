@@ -210,6 +210,11 @@ class incident
      */
     public function tags(array $tags = [])
     {
+        if (config('opsgenie.tags')) {
+            $defaultTags = explode(',', config('opsgenie.tags'));
+            $tags = array_merge($defaultTags, $tags);
+        }
+
         $this->object['tags'] = $tags;
 
         return $this;
@@ -217,6 +222,10 @@ class incident
 
     public function send()
     {
+        if (config('opsgenie.tags')) {
+            $this->tags();
+        }
+
         try {
             $client = new Client();
 
@@ -410,6 +419,11 @@ class alert
      */
     public function tags(array $tags = [])
     {
+        if (config('opsgenie.tags')) {
+            $defaultTags = explode(',', config('opsgenie.tags'));
+            $tags = array_merge($defaultTags, $tags);
+        }
+
         $this->object['tags'] = $tags;
 
         return $this;
@@ -439,6 +453,10 @@ class alert
 
     public function send()
     {
+        if (config('opsgenie.tags')) {
+            $this->tags();
+        }
+
         try {
             $client = new Client();
 
