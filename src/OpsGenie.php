@@ -185,6 +185,10 @@ class incident
     {
         $this->object['message'] = (config('opsgenie.prefix') ? '['.config('opsgenie.prefix').'] ' : '').$message;
 
+        if (!array_key_exists( 'alias', $this->object)) {
+            $this->object['alias'] = md5($this->object['message']);
+        }
+
         return $this;
     }
 
@@ -390,6 +394,10 @@ class alert
     public function message(string $message)
     {
         $this->object['message'] = (config('opsgenie.prefix') ? '['.config('opsgenie.prefix').'] ' : '').$message;
+
+        if (!array_key_exists( 'alias', $this->object)) {
+            $this->object['alias'] = md5($this->object['message']);
+        }
 
         return $this;
     }
