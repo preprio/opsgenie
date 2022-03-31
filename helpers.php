@@ -6,6 +6,8 @@ if (! function_exists('Ops')) {
      */
     function Ops()
     {
-        return new Prepr\OpsGenie\OpsGenie();
+        if (config('opsgenie.key')) {
+            return new Prepr\OpsGenie\OpsGenie();
+        }
     }
 }
