@@ -3,6 +3,7 @@
     "require": {
         "guzzlehttp/guzzle": "^4|^5|^6|^7"
     },
+    "license": "MIT",
     "authors": [
         {
             "name": "Davy de Vries",
