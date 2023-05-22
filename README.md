@@ -1,4 +1,8 @@
-# Installation
+# Prepr Laravel Opsgenie SDK
+
+This SDK is used by the Prepr team to monitor Laravel projects in Atlassian Opsgenie.
+
+## Installation
 
 ### Composer
 ```
