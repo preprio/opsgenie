@@ -6,16 +6,6 @@ This SDK is used by the Prepr team to monitor Laravel projects in Atlassian Opsg
 
 ### Composer
 ```
-...
-"repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/preprio/opsgenie.git"
-        }
-    ],
-...
-```
-```
 composer require preprio/opsgenie
 ```
 ### Config
@@ -83,7 +73,7 @@ Set incident priority.
 
 |Priority|Function|
 |---|---|
-|Critical| `->P1()` or `->citical()`|
+|Critical| `->P1()` or `->critical()`|
 |High| `->P2()` or `->high()`|
 |Moderate| `->P3()` or `->moderate()`|
 |Low| `->P4()` or `->low()`|
