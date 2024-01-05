@@ -53,8 +53,8 @@ class incident
     private $parent;
 
     /**
-     * @param $data
-     * @param $parent
+     * @param  $data
+     * @param  $parent
      */
     public function __construct($data, $parent)
     {
@@ -185,7 +185,7 @@ class incident
     {
         $this->object['message'] = (config('opsgenie.prefix') ? '['.config('opsgenie.prefix').'] ' : '').$message;
 
-        if (!array_key_exists( 'alias', $this->object)) {
+        if (! array_key_exists('alias', $this->object)) {
             $this->object['alias'] = md5($this->object['message']);
         }
 
@@ -263,8 +263,8 @@ class alert
     private $parent;
 
     /**
-     * @param $data
-     * @param $parent
+     * @param  $data
+     * @param  $parent
      */
     public function __construct($data, $parent)
     {
@@ -395,7 +395,7 @@ class alert
     {
         $this->object['message'] = (config('opsgenie.prefix') ? '['.config('opsgenie.prefix').'] ' : '').$message;
 
-        if (!array_key_exists( 'alias', $this->object)) {
+        if (! array_key_exists('alias', $this->object)) {
             $this->object['alias'] = md5($this->object['message']);
         }
 
